@@ -1,0 +1,19 @@
+#define Q_SIZE 20
+#define Q_BITSIZE 5 //2^5
+
+typedef struct{
+	char q_data[Q_SIZE];
+	//char q_data[1<<Q_BITSIZE];
+	int q_fs;//variable zum mitzählen wie viele Bytes reingeschrieben wurden im Puffer
+	int q_h;//Kopf bzw start vom Schreiben in den RINGPUFFER
+	int q_t;//nächste freie stelle im Ringpuffer
+}Q_T;
+
+int q_enqueue(QT*q, char d){
+	if((*q).q_fs==Q_SIZE))return 0;
+	q->q_data[q->q_t]=d;
+	q->q_fs++;
+	q->q_t++;
+	q->q_t %= Q_SIZE;//if(q->q_t==Q_SIZE)q->q_t=0;//q->q_t &=((1<<Q_BITSIZE)-1);
+	return 1;
+}
