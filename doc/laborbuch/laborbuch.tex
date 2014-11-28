@@ -1,0 +1,43 @@
+\documentclass[a4paper]{scrreprt}
+
+\usepackage[german]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage[bottom=10em, top=5em]{geometry}
+\usepackage{amsmath}
+\usepackage[pdftex]{graphicx}
+\usepackage{booktabs, array}
+\usepackage{eurosym}
+
+\usepackage{chngcntr}
+\counterwithout{figure}{chapter}
+\renewcommand{\figurename}{Abbildung}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\begin{document}
+
+\author{S. Biereigel, R. Winkler, M. Fugmann, J. Yin}
+\title{Laborbuch Mikrorechnerentwurf}
+
+\input{./titelseite.tex}
+
+\tableofcontents
+\pagebreak
+
+\input{treffen/treffen-2014-09-29.tex}
+\input{treffen/treffen-2014-10-13.tex}
+\input{treffen/treffen-2014-10-27.tex}
+\input{treffen/treffen-2014-11-03.tex}
+\input{treffen/treffen-2014-11-06.tex}
+\input{treffen/treffen-2014-11-10.tex}
+\input{treffen/treffen-2014-11-17.tex}
+\input{treffen/treffen-2014-11-20.tex}
+\input{./anhang.tex}
+
+\listoftables
+\listoffigures
+
+\end{document}
+
+

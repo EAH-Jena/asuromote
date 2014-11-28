@@ -1,0 +1,92 @@
+\chapter{Treffen am 29.09.2014}
+\section{Anwesende Personen}
+\begin{itemize}
+	\item Stefan Biereigel
+	\item Rene Winkler
+	\item Mathias Fugmann
+	\item Junlong Yin
+\end{itemize}
+
+\section{Besprochen bzw. Bearbeitet}
+\begin{itemize}
+	\item Kundengespräch mit Herrn Voß
+		\begin{itemize}
+			\item Aufgabenstellung erhalten
+			\item Kostenrahmen definiert
+		\end{itemize}
+	\item Erarbeitung der Spezifikation
+\end{itemize}
+
+\section{Problemstellung des Kunden}
+\begin{itemize}
+	\item Übertragung von Daten zum ASURO zu störanfällig (andere ASURO, Umwelteinflüsse)
+	\begin{itemize}
+		\item Diskussion: Kam uns nicht sehr störanfällig vor
+		\item Fehlererkennung und -korrektur ist bereits vorhanden
+		\item könnte man auch weiternutzen (über anderes Übertragungsmedium?)
+	\end{itemize}
+	\item Fernsteuerung für den ASURO fehlt
+	\begin{itemize}
+		\item erste Idee: WiiMote-ähnliche Steuerung wäre ansprechend
+	\end{itemize}
+\end{itemize}
+
+
+\section{Spezifikation}
+Legende: F = Forderung, W = Wunsch
+\begin{itemize}
+	\item Hauptanforderungen
+	\begin{itemize}
+		\item (F) Steuerung des ASURO über min. eine Eingabemöglichkeit
+		\item (F) Programmierung des ASURO (Flashen) über eine Schnitstelle	
+	\end{itemize}
+
+\item Leistungsfähigkeit (Performance)
+	\begin{itemize}
+		\item (F) Steuerung aller Bewegungsrichtungen
+		\item (F) Kommunikation mit ASURO fehlertolerant / nicht störanfällig
+		\item (F) Kommunikationsreichweite minimum fünf Meter
+		\item (W) Kommunikation in gesamtem Raum möglich
+	\end{itemize}
+\item Energieversorgung
+	\begin{itemize}
+		\item (F) Kabellose Stromversorgung
+		\item (W) Akkus im Gerät aufladbar
+	\end{itemize}
+\item Geometrie
+	\begin{itemize}
+		\item (F) Handgerät, zweihändige Bedienung
+	\end{itemize}
+\item Budget
+	\begin{itemize}
+		\item (F) Leistungsaufnahme: Gerätelaufzeit mindestens eine Stunde Dauerbetrieb
+	\end{itemize}
+	\begin{itemize}
+		\item (F) Gewicht weniger als 500 Gramm
+	\end{itemize}
+	\begin{itemize}
+		\item (F) Kosten maximal \EUR{50} exklusive STM32F4 Discovery Board
+	\end{itemize}
+	\begin{itemize}
+		\item (F) Entwicklungs- und Herstellungszeit: Auslieferung spätestens 12. Semesterwoche im SS 2015
+	\end{itemize}
+\item Herstellungsprozess
+	\begin{itemize}
+		\item Elektronik in Eigenarbeit herstellen, Software selbst implementieren
+	\end{itemize}
+\item Standards
+	\begin{itemize}
+		\item (F) Einhaltung von in Deutschland gültigen, für den Betrieb notwendigen
+	 Standards
+	\end{itemize}
+\item Sicherheit
+	\begin{itemize}
+		\item (F) keine gesundheitliche Gefährdung von Personen durch das Gerät
+	\end{itemize}
+\item Ergonomie
+	\begin{itemize}
+		\item (W) einfache Bedienbarkeit
+		\item (W) ansprechendes Aussehen
+		\item (W) ergonomische Handhabung
+	\end{itemize}
+\end{itemize}

@@ -1,0 +1,28 @@
+\chapter{Treffen am 17.11.2014}
+\section{Anwesende Personen}
+\begin{itemize}
+	\item Stefan Biereigel
+	\item Rene Winkler
+	\item Mathias Fugmann
+	\item Junlong Yin
+\end{itemize}
+
+\section{Besprochen bzw. Bearbeitet}
+Es wurden verschiedene Eigenheiten des SPI-Interfaces in Zusammenhang mit dem Beschleunigungssensor untersucht, dabei kamen wir zu folgenden Erkenntnissen:
+\begin{itemize}
+	\item Der Beschleunigungssensor benötigt eine gewisse Zeit bis zur Kommunikationsbereitschaft
+	\item Wird diese nicht eingehalten, wird der Power Down Mode nicht verlassen und nicht in den Messmodus gewechselt.
+\end{itemize}
+Durch einfügen entsprechender Wartezeiten in unseren Code konnten diese Probleme behoben werden. 
+
+Es wurde ein Arbeitsplatn für die kommenden Seminare erstellt. Es ist von jedem Gruppenmitglied ein eigenständiges Modul für verschiedene Hardwarebaugruppen zu erstellen. Die Schnittstellen dieser Module sollen dokumentiert sein. Außerdem wird auf eine strikte Trennung in Ebenen (Hardware- und Treiberebene) geachtet.
+
+Die Aufgaben wurden wie folgt verteilt:
+\begin{itemize}
+	\item AD-Wandler inkl. Temperatursensor (Junlong Yin)
+	\item SPI / Accelerometer (Rene Winkler)
+	\item Funkmodul nRF24LR01+ (Mathias Fugmann)
+	\item USB-UART-Verbindung mit STM32F4 (Stefan Biereigel)
+\end{itemize}
+
+Die Erarbeitung des notwendigen Wissens erfolgt selbstständig und nach Fertigstellung der Module wird deren Funktionalität kurz vorgestellt und dokumentiert, um sie in der Produktentwicklung wiederverwenden zu können.
