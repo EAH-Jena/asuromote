@@ -1,8 +1,9 @@
-﻿#include "stm32f4xx.h"                  // Device header
+#include "stm32f4xx.h"                  // Device header
 #include "GPIO_STM32F4xx.h"             // Keil::Device:GPIO
 #include "stm32f4xx_spi.h"              // Keil::Device:StdPeriph Drivers:SPI
 #include "stm32f4xx_rcc.h"              // Keil::Device:StdPeriph Drivers:RCC
 
+int8_t x = 0, y = 0, z = 0;
 void wait(int ms){
 		volatile uint32_t i = 0;
 		i = ms*16800;
@@ -10,8 +11,6 @@ void wait(int ms){
 			i--;
 		}
 }
-//neue Zeile für test
-
 enum{blau, rot, gruen, orange, all};
 void init_LEDs(){
 		GPIO_PortClock(GPIOD,1);
@@ -76,49 +75,6 @@ void switch_LED(int farbe, int wert){
 enum{SPI_1, SPI_2, SPI_3, SPI_4, SPI_5, SPI_6};
 void init_SPI(int spi_number){
 		SPI_InitTypeDef SPI_InitTypeDefStruct;
-		
-	//Enable peripheral clock
-		switch(spi_number){
-				case SPI_1:
-					RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1, ENABLE);// for SPI1
-					break;
-				case SPI_2:
-					RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE);// for SPI2
-					break;
-				case SPI_3:
-					RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE);// for SPI3
-					break;
-				case SPI_4:
-					RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE);// for SPI4
-					break;
-				case SPI_5:
-					RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE);// for SPI5
-					break;
-				case SPI_6:
-					RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE);// for SPI6
-					break;
-		}
-		
-		//Enable GPIO Peripherie Clock für PORT A und E (SCK, MOSI, MISO and NSS GPIO clocks)
-		GPIO_PortClock(GPIOA,1);
-		GPIO_PortClock(GPIOE,1);
-		
-		//Enable GPIO Peripherie Clock für PORT D (Chip select)
-		GPIO_PortClock(GPIOD,1);
-		
-		//alternative Funktion benutzen
-		/*RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA,ENABLE);
-		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB,ENABLE);
-		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC,ENABLE);
-		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD,ENABLE);
-		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE,ENABLE);
-		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF,ENABLE);
-		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG,ENABLE);
-		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOH,ENABLE);
-		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOI,ENABLE);
-		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOJ,ENABLE);
-		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOK,ENABLE);*/
-		
 		//SPI1 initialisieren
 		//Program the Polarity, Phase, First Data, Baud Rate Prescaler, Slave 
 		//Management, Peripheral Mode and CRC Polynomial values
@@ -130,25 +86,41 @@ void init_SPI(int spi_number){
 		SPI_InitTypeDefStruct.SPI_FirstBit = SPI_FirstBit_MSB;
 		SPI_InitTypeDefStruct.SPI_CPOL = SPI_CPOL_High;//clock auf steigende Flanke?
 		SPI_InitTypeDefStruct.SPI_CPHA = SPI_CPHA_2Edge;
-		//SPI1 mit struct initialisieren 
-		SPI_Init(SPI1, &SPI_InitTypeDefStruct);
 		
-		//Configuring der SCK, MISO, MOSI -Pin´s mit AF-MODE
-		GPIO_PinConfigure(GPIOA,5,GPIO_MODE_AF,GPIO_OUTPUT_PUSH_PULL,GPIO_OUTPUT_SPEED_50MHz,GPIO_NO_PULL_UP_DOWN);
-		GPIO_PinConfigure(GPIOA,6,GPIO_MODE_AF,GPIO_OUTPUT_PUSH_PULL,GPIO_OUTPUT_SPEED_50MHz,GPIO_NO_PULL_UP_DOWN);
-		GPIO_PinConfigure(GPIOA,7,GPIO_MODE_AF,GPIO_OUTPUT_PUSH_PULL,GPIO_OUTPUT_SPEED_50MHz,GPIO_NO_PULL_UP_DOWN);
-		
-		//Configuring ChipSelect-Pin PE3 
-		GPIO_PinConfigure(GPIOE,3,GPIO_MODE_OUTPUT,GPIO_OUTPUT_PUSH_PULL,GPIO_OUTPUT_SPEED_50MHz,GPIO_PULL_UP); 
-
-		//Pin´s ans SPI1 koppeln
-		GPIO_PinAF(GPIOA, 5, GPIO_AF_SPI1);
-		GPIO_PinAF(GPIOA, 6, GPIO_AF_SPI1);
-		GPIO_PinAF(GPIOA, 7, GPIO_AF_SPI1);
-		
-		GPIO_PinWrite(GPIOE,3,1);//Chipselect high
-		SPI_Cmd(SPI1, ENABLE);
-		wait(10);//warten bis MEM/SPI hochgefahren ist
+	//Enable peripheral clock
+		switch(spi_number){
+				case SPI_1:
+						RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1, ENABLE);// for SPI1
+						//SPI1 mit struct initialisieren 
+						SPI_Init(SPI1, &SPI_InitTypeDefStruct);
+						SPI_Cmd(SPI1, ENABLE);
+						break;
+				case SPI_2:
+						RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE);// for SPI2
+						SPI_Init(SPI2, &SPI_InitTypeDefStruct);
+						SPI_Cmd(SPI2, ENABLE);
+						break;
+				case SPI_3:
+						RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE);// for SPI3
+						SPI_Init(SPI3, &SPI_InitTypeDefStruct);
+						SPI_Cmd(SPI3, ENABLE);
+						break;
+				case SPI_4:
+						RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE);// for SPI4
+						SPI_Init(SPI4, &SPI_InitTypeDefStruct);
+						SPI_Cmd(SPI4, ENABLE);
+						break;
+				case SPI_5:
+						RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE);// for SPI5
+						SPI_Init(SPI5, &SPI_InitTypeDefStruct);
+						SPI_Cmd(SPI5, ENABLE);
+						break;
+				case SPI_6:
+						RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE);// for SPI6
+						SPI_Init(SPI6, &SPI_InitTypeDefStruct);
+						SPI_Cmd(SPI6, ENABLE);
+						break;
+		}
 }
 void mySPI_SendData(uint8_t adress, uint8_t data){
 		GPIO_PinWrite(GPIOE, 3,0);
@@ -179,6 +151,41 @@ int8_t mySPI_RecvData(uint8_t adress){
 	return SPI_I2S_ReceiveData(SPI1);
 }
 void init_MEM(){
+		//Enable GPIO Peripherie Clock für PORT A und E (SCK, MOSI, MISO and NSS GPIO clocks)
+		GPIO_PortClock(GPIOA,1);
+		GPIO_PortClock(GPIOE,1);
+		
+		//Enable GPIO Peripherie Clock für PORT D (Chip select)
+		GPIO_PortClock(GPIOD,1);
+		
+		//alternative Funktion benutzen
+		/*RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA,ENABLE);
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB,ENABLE);
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC,ENABLE);
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD,ENABLE);
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE,ENABLE);
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF,ENABLE);
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG,ENABLE);
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOH,ENABLE);
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOI,ENABLE);
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOJ,ENABLE);
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOK,ENABLE);*/
+	
+		//Configuring der SCK, MISO, MOSI -Pin´s mit AF-MODE
+		GPIO_PinConfigure(GPIOA,5,GPIO_MODE_AF,GPIO_OUTPUT_PUSH_PULL,GPIO_OUTPUT_SPEED_50MHz,GPIO_NO_PULL_UP_DOWN);
+		GPIO_PinConfigure(GPIOA,6,GPIO_MODE_AF,GPIO_OUTPUT_PUSH_PULL,GPIO_OUTPUT_SPEED_50MHz,GPIO_NO_PULL_UP_DOWN);
+		GPIO_PinConfigure(GPIOA,7,GPIO_MODE_AF,GPIO_OUTPUT_PUSH_PULL,GPIO_OUTPUT_SPEED_50MHz,GPIO_NO_PULL_UP_DOWN);
+		
+		//Configuring ChipSelect-Pin PE3 
+		GPIO_PinConfigure(GPIOE,3,GPIO_MODE_OUTPUT,GPIO_OUTPUT_PUSH_PULL,GPIO_OUTPUT_SPEED_50MHz,GPIO_PULL_UP); 
+
+		//Pin´s ans SPI1 koppeln
+		GPIO_PinAF(GPIOA, 5, GPIO_AF_SPI1);
+		GPIO_PinAF(GPIOA, 6, GPIO_AF_SPI1);
+		GPIO_PinAF(GPIOA, 7, GPIO_AF_SPI1);
+		
+		GPIO_PinWrite(GPIOE,3,1);//Chipselect high
+		wait(10);//warten bis MEM/SPI hochgefahren ist
 		//CTRL 4 init
 		mySPI_SendData(0x20,0x7F);
 		//CTRL 5 init
@@ -200,13 +207,13 @@ int8_t get_MEMs_Axis_value(int axis){
 	volatile int8_t t;
 	switch(axis){
 		case X:
-			t = mySPI_RecvData(0x29);
+			t = mySPI_RecvData(0x29)-x;
 			break;
 		case Y:
-			t = mySPI_RecvData(0x2B);
+			t = mySPI_RecvData(0x2B)-y;
 			break;
 		case Z:
-			t = mySPI_RecvData(0x2D);
+			t = mySPI_RecvData(0x2D)-z;
 			break;
 		default:
 			t = 0xFF;
@@ -214,13 +221,13 @@ int8_t get_MEMs_Axis_value(int axis){
 	}
 	return t;
 }
-void set_MEMs_Offsets(int8_t x, int8_t y, int8_t z){
-		//x = x*8;
-		//y = y*8;
-		//z = z*8;
-		mySPI_SendData(0x10,x);//X-Offset
-		mySPI_SendData(0x11,y);//Y-Offset
-		mySPI_SendData(0x12,z);//Z-Offset
+void set_MEMs_Offsets(){
+		mySPI_SendData(0x10,0);//X-Offset
+		mySPI_SendData(0x11,0);//Y-Offset
+		mySPI_SendData(0x12,0);//Z-Offset
+		x = get_MEMs_Axis_value(X);
+		y = get_MEMs_Axis_value(Y);
+		z = get_MEMs_Axis_value(Z);
 }
 void reboot_mem(){
 	volatile uint16_t index = 0;
@@ -232,16 +239,11 @@ void reboot_mem(){
 	//remove matze
 }
 int main(void){
-		volatile int8_t x;
-		volatile int8_t y;
-		volatile int8_t z;
-		volatile int v = 0;
-		volatile int w = 0;
 		//vier CursorLEDs einrichten
 		init_LEDs();
-		//SPI für Motionsensor einrichten
+		//SPI1 für Motionsensor einrichten
 		init_SPI(SPI_1);
-		//Motionsensors Controlregister beschreiben
+		//GPIO SCK,MOSI usw. einrichten für Motionsensor und Controlregister beschreiben
 		init_MEM();
 		//SPI zum MEM prüfen, bei korrekt gehen alle 4 LEDs an
 		if(check_MEMs_who_am_i()){
@@ -250,25 +252,7 @@ int main(void){
 				switch_LED(all,0);
 		}
 		//Offset einstellen
-		set_MEMs_Offsets(0,0,0);
-		x = get_MEMs_Axis_value(X);
-		y = get_MEMs_Axis_value(Y);
-		z = get_MEMs_Axis_value(Z);
-		z=10;
-		while(y<z){
-			v++;
-			w--;
-			set_MEMs_Offsets(0,v,0);
-			y = get_MEMs_Axis_value(Y);
-		}
-		set_MEMs_Offsets(31,-31,0);
-		x = get_MEMs_Axis_value(X);
-		y = get_MEMs_Axis_value(Y);
-		z = get_MEMs_Axis_value(Z);
-		set_MEMs_Offsets(20,20,0);
-		x = get_MEMs_Axis_value(X);
-		y = get_MEMs_Axis_value(Y);
-		z = get_MEMs_Axis_value(Z);
+		set_MEMs_Offsets();
 		while(1){
 				if(get_MEMs_Axis_value(Y)>0){
 					switch_LED(blau,1);//LED blue on
