@@ -16,8 +16,7 @@
 #include "stm32f4xx_adc.h"              // Keil::Device:StdPeriph Drivers:ADC
 #include "stm32f4xx_rcc.h"              // Keil::Device:StdPeriph Drivers:RCC
 
-void ADC_Config(void)
-{
+void ADC_Config(void){
 ADC_InitTypeDef ADC_InitStruc;
 ADC_CommonInitTypeDef ADC_CommonInitStruc;
 ADC_DeInit();
@@ -32,7 +31,7 @@ ADC_Init(ADC1,&ADC_InitStruc);
 ADC_CommonInitStruc.ADC_Mode=ADC_Mode_Independent;
 ADC_CommonInitStruc.ADC_Prescaler=ADC_Prescaler_Div4;
 ADC_CommonInitStruc.ADC_DMAAccessMode=ADC_DMAAccessMode_Disabled;
-ADC_CommonInitStruc.ADC_TwoSamplingDelay=ADC_TwoSamplingDelay_5Cycles;	
+ADC_CommonInitStruc.ADC_TwoSamplingDelay=ADC_TwoSamplingDelay_10Cycles;	
 ADC_CommonInit(&ADC_CommonInitStruc);
 ADC_RegularChannelConfig(ADC1,ADC_Channel_TempSensor,1,ADC_SampleTime_144Cycles);	
 ADC_TempSensorVrefintCmd(ENABLE);
@@ -40,9 +39,9 @@ ADC_Cmd(ADC1,ENABLE);
 }
 
 
-int main(void)
-{
+int main2(void){
 float TemperatureValue = 0;
+ADC_Config();
 ADC_SoftwareStartConv(ADC1);
 while (ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET);
 TemperatureValue = ADC_GetConversionValue(ADC1);
