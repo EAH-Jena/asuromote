@@ -1,0 +1,12 @@
+\chapter{Treffen am 01.12.2014}
+\section{Anwesende Personen}
+\begin{itemize}
+	\item Stefan Biereigel
+	\item Rene Winkler
+	\item Mathias Fugmann
+	\item Junlong Yin
+\end{itemize}
+
+\section{Besprochen bzw. Bearbeitet}
+Zusammen widmeten wir uns dem von Junlong programmierten ADC-Code zum Auslesen des Temperatursensors. Als Problem stellte sich dabei dar, dass die Temperatur nach der (augenscheinlich korrekten) Umrechnung etwa 25 Kelvin zu hoch angezeigt wird. Wahrscheinlich ist dies auf inkorrekte Einstellung des Prescalers für den AD-Wandler zurückzuführen, sodass das minimale Sampleintervall für den Temperatursensor nicht eingehalten wird.
+Da aber eine tendentielle Änderung bei Aufbringen einer Wärmequelle (Finger) in die richtige Richtung erkannt werden konnte, wurde beschlossen das Teilgebiet AD-Wandler-Nutzung für abgeschlossen zu erklären. Code wurde dazu im Repository hinterlegt. 
