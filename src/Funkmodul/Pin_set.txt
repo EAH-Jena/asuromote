@@ -1,12 +1,13 @@
 PIN Belegung von Funkmodul zum STM32f407
 
+			   SPI1
 PIN Funkmodul	-->	PIN STM32f407
 1 GND			P1 GND
 2 Vcc (3V)		P2 3V
-3 CE (Chip Enable) 	P2 PA15 (SPI1_NSS) #Ich wüste sonnst keinen anderen PIN der Sin machen würde.
+3 CE (Chip Enable) 	P2 PD8 (RF activated pin)
 4 CSN (Chip Select)	P1 PA4 (SPI1_NSS)
 5 SCK			P1 PA5
 6 MOSI			P1 PA7
 7 MISO			P1 PA6
-8 IRQ			
+8 IRQ			Not used
 
