@@ -1,0 +1,97 @@
+\chapter{Treffen am 08.12.2014}
+\section{Anwesende Personen}
+\begin{itemize}
+	\item Stefan Biereigel
+	\item Rene Winkler
+	\item Mathias Fugmann
+	\item Junlong Yin
+\end{itemize}
+
+\section{Besprochen bzw. Bearbeitet}
+Zuerst wurden die bearbeiteten Aufgaben besprochen:
+\begin{itemize}
+	\item Interrupts am STM32F4 (bearbeitet von Julong) funktionieren
+	\item UART-Implementierung (von Stefan) funktioniert (mit ISR)
+	\item elektrische Verbindung nRF24 geklärt
+\end{itemize}
+
+\subsection{Auswertung Beschleunigungs-Sensor}
+Für den Beschleunigungssensor stellte sich noch die Frage der Umrechnung der Sensorwerte in den Neigungswinkel. Die Erdbeschleunigung wirkt auf die Achsen entsprechend der Lage so, dass bei "Vektoraddition" der Einzelachsen ein Kraftvektor mit Länge 1G in Richtung Erdmittelpunkt entsteht. Über den Winkel aufgetragen bilden sich in den einzelnen Achsen Kosinus-/Sinusverläufe der Messwerte. Durch Anwendung von Winkelfunktionen können die Sensorwerte auf die Verkippwinkel umgerechnet werden, die dann auf die Beschleunigungssollwerte überführt werden können. 
+Rene beschäftigt sich im Laufe des Praktikums weiter mit der FIFO-Implementierung.
+
+\subsection{Auswertung: Experiment USB-CDC mit STM32F4}
+Es gab die Idee, die USB OTG-Verbindung des STM32F4 direkt als Virtuellen COM-Port am PC zu enumerieren. Das Experiment dazu wurde von Stefan durchgeführt. Mit der Library von ST konnte die Funktion unter Linux hergestellt werden - unter Windows ist es leider (mangels integrierter Treiber) nicht für ein Verkaufsfähiges Produkt brauchbar. Der Einrichtungsaufwand übersteigt hierbei das sinnvolle Maß. Es wird als Ausweichlösung ein USB-Seriell-Wandler-IC überlegt (Beispiel: FTDI FT232).
+
+\subsection{Aufwandsabschätzung}
+Weiterhin wurde sich mit der Aufstellung einer Aufwandsabschätzung beschäftigt. Die folgenden Aspekte sind dabei in Betracht gezogen worden.
+\subsubsection{Aufwandsabschätzung Hardware}
+\begin{tabular}{l|l}
+	Funktionsblock & geplanter Aufwand\\
+	\hline
+	Anzeige (LCD) & Verdrahtung: 1h \\
+	\hline
+	BT-Modul & Verdrahtung: 15min \\
+	\hline
+	Eingabeeinheiten & Verdrahtung: 15min \\
+	\hline
+	Akku-Ladung & Konzept/Research: 1h\\
+	& Umsetzung: 15min \\
+	\hline
+	Funkmodul nRF24LR01 & Datenblatt, Belegung: 1,5h \\
+	& Verdrahtung: 15min \\
+	\hline
+	Flashmöglichkeit per USB & Einarbeitung, Datenblätter: 2h\\
+	& Verdrahtung: 15min\\
+	\hline
+	Gesamt-Elektronik & Schaltplan: 4h\\
+	& Layout: 5-6h \\
+	& Herstellung (PCB + Bestückung): 4h\\
+	\hline
+	Gehäuse & Design: 8-10h\\
+	& Herstellung (3D-Druck): 4-5h\\
+\end{tabular}
+
+Für viele Bereiche der Elektronik muss für das endgültige Konzept Nachforschung der Anschlussbelegungen usw. in den Datenblättern erfolgen. Zeit für kritische Reviews der Hardware MUSS zusätzlich eingeplant werden!
+
+\subsubsection{Aufwandsabschätzung Software} 
+\begin{tabular}{l|l}
+	Funktionsblock & geplanter Aufwand\\
+	\hline
+	Anzeige (LCD), Grafik & Low-Level: 6h \\
+	& Zeichenfunktionen: 2h \\
+	\hline
+	User-Interface & Menü-Struktur: 3h \\
+	& Zeigeranzeige (Speed): 2-3h \\
+	& künstlicher Horizont: 2-3h \\
+	& Zahlenwertanzeige: 1h \\
+	& Balkenanzeige: 1h \\
+	& Symbole für Akku etc.: 2h\\
+	\hline
+	Bluetooth-Modul & Connect-Mechanismus: 2-3h \\
+	& UART-Brücke (2 Module): 1h \\
+	\hline
+	AD-Wandler & Inbetriebnahme: 0,5h \\
+	& Joystick-Auswertung: 1h\\
+	& Temperatursensor: 0,5h\\
+	& Batteriestand: 1,5h\\
+	\hline
+	Accelerometer & Inbetriebnahme: 0,5h \\
+	& Weiterverarbeitung Messwerte: 2h \\
+	\hline
+	Funkmodul nRF24LR01 & Implementierung: 7..8h \\
+	& Test Kommunikationsparameter: 2-3h \\
+	\hline
+	Steuerkreuz & Auswertung: 0,5h\\
+	\hline
+	Flashen per USB & am Asuro: 2-3h\\
+	& von Fernbedienung aus: 3-4h\\
+	\hline
+	Kommunikation Asuro + FB & Protokoll: 3-4h\\
+	& Implementierung: 2-3h 
+\end{tabular}
+
+Das Funkmodul stellt vom Aufwand her einen nicht zu vernachlässigenden Faktor dar, der unbedingt zeitig im Projekt bearbeitet werden sollte! Sollten unerwartete Probleme auftreten, können diese noch flexibel (evtl. durch Inkaufnahme von höheren Kosten) behoben werden.
+Auch hier sind regelmäßige, kritische Software-Reviews wichtig!
+
+\subsection{Beginn Entscheidungsmatrix}
+Es wurde auf dem Papier nach den Kriterien aus \autoref{chap:kriterien} eine Entscheidungsmatrix erzeugt. Das Füllen dieser Matrix mit Wichtungen soll im nächsten Seminar geschehen, um sich endgültig für ein Konzept entscheiden zu können.
