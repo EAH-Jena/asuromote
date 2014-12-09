@@ -15,6 +15,22 @@ Zuerst wurden die bearbeiteten Aufgaben besprochen:
 	\item elektrische Verbindung nRF24 geklärt
 \end{itemize}
 
+\subsection{Verschaltung nRF24L01+}
+Das Modul wird an SPI1 (welches ohnehin für den Beschleunigungs-Sensor verwendet wird) angebunden.
+
+\begin{tabular}{l|l|l|l}
+	Pin am Modul & Bezeichnung/Funktion & Pin am STM32 & Bezeichnung/Funktion\\
+	\hline
+	1 & GND & GND & - \\
+	2 & Vcc & 3V & Spannungsversorgung \\
+	3 & CE & PD8 & Chip Enable (GPIO) \\
+	4 & CSn & PA4 & SPI1 chip select \\
+	5 & SCK & PA5 & SPI1 serial clock\\
+	6 & MOSI & PA7 & SPI1 master out slave in \\
+	7 & MISO & PA6 & SPI1 master in slave out \\
+	8 & IRQ & n/a & Interrupt Request \\
+\end{tabular}
+
 \subsection{Auswertung Beschleunigungs-Sensor}
 Für den Beschleunigungssensor stellte sich noch die Frage der Umrechnung der Sensorwerte in den Neigungswinkel. Die Erdbeschleunigung wirkt auf die Achsen entsprechend der Lage so, dass bei "Vektoraddition" der Einzelachsen ein Kraftvektor mit Länge 1G in Richtung Erdmittelpunkt entsteht. Über den Winkel aufgetragen bilden sich in den einzelnen Achsen Kosinus-/Sinusverläufe der Messwerte. Durch Anwendung von Winkelfunktionen können die Sensorwerte auf die Verkippwinkel umgerechnet werden, die dann auf die Beschleunigungssollwerte überführt werden können. 
 Rene beschäftigt sich im Laufe des Praktikums weiter mit der FIFO-Implementierung.
