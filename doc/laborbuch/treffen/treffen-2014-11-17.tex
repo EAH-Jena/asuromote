@@ -10,8 +10,8 @@
 \section{Besprochen bzw. Bearbeitet}
 Es wurden verschiedene Eigenheiten des SPI-Interfaces in Zusammenhang mit dem Beschleunigungssensor untersucht, dabei kamen wir zu folgenden Erkenntnissen:
 \begin{itemize}
-	\item Der Beschleunigungssensor benötigt eine gewisse Zeit bis zur Kommunikationsbereitschaft
-	\item Wird diese nicht eingehalten, wird der Power Down Mode nicht verlassen und nicht in den Messmodus gewechselt.
+	\item Der Beschleunigungssensor benötigt eine gewisse Zeit bis zur Kommunikationsbereitschaft (Der Sensor lieferte bei zu schneller Initialisierung durch die Software keine Messwerte)
+	\item Wird diese nicht eingehalten, wird der Power Down Mode nicht verlassen und nicht in den Messmodus gewechselt
 \end{itemize}
 Durch einfügen entsprechender Wartezeiten in unseren Code konnten diese Probleme behoben werden. 
 

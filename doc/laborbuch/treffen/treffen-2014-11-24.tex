@@ -9,3 +9,5 @@
 
 \section{Besprochen bzw. Bearbeitet}
 Rene hat die Ansteuerung der SPI-Einheit und des Beschleunigungssensors nun in Treiber- und Hardwareebene getrennt, sodass eine autarke Weiterverwendbarkeit des SPI-Codes unabhängig vom Beschleunigungssensor gewährleistet ist.
+
+Die Schnittstelle auf SPI-Ebene beläuft sich auf Initialisierungs- und Lese/Schreib-Routinen, welche der Treiber für den Beschleunigungssensor verwendet. Dieser stellt selbst nach oben hin Funktionen zum Auslesen der einzelnen Kanäle, zur Initialisierung sowie zur Sensorinitialisierung zur Verfügung.
