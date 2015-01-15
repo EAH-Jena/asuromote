@@ -1,0 +1,26 @@
+\chapter{Treffen am 15.01.2014}
+\section{Anwesende Personen}
+\begin{itemize}
+	\item Stefan Biereigel
+	\item Rene Winkler
+	\item Mathias Fugmann
+	\item Junlong Yin
+\end{itemize}
+
+\section{Besprochen bzw. Bearbeitet}
+Rene und Mathias nutzten teilen Teil des Praktikums für die Kommunikation mit dem FB SciTec mit Hinblick auf die Fertigung von Gehäusen.
+\begin{itemize}
+	\item Herstellung in 3 Verfahren möglich
+	\item Aus Kostengründen nur ein Verfahren möglich (FDM, 3D-Druck)
+	\item Abschätzung: 10m für ein Gehäuse, 10ct pro Meter etwa
+	\item Stärken: 1,5mm Minimum in allen Achsen
+	\item STL-Datei als Input für den Druck muss verfügbar sein
+	\item Material ist immer verfügbar
+	\item Vorlaufzeit: ca. 1 Woche, nicht erst 3 Tage vorher
+	\item vorherige Testläufe wären möglich (auch kostenfrei)
+	\item Überhänge sind problematisch (bei Design beachten)
+\end{itemize}
+
+Weitere Vorschläge und Ideen zum Design wurden besprochen und ausgewertet.
+
+Stefan und Junlong konnten die Probleme am UART des STM32 beheben und erste Messwerte in Excel überführen. Das Problem war, dass in einer der Standard Peripheral Library zugehörigen Dateien noch ein Wert für den Quarz von 25MHz eingetragen war. Nach Hinzufügen der Präprozessordirektive -DHSE\_ VALUE=8000000 war die Baudrate korrekt und die Kommunikation funktionierte.

@@ -1,0 +1,25 @@
+\chapter{Treffen am 12.01.2014}
+\section{Anwesende Personen}
+\begin{itemize}
+	\item Stefan Biereigel
+	\item Rene Winkler
+	\item Mathias Fugmann
+	\item Junlong Yin
+\end{itemize}
+
+\section{Besprochen bzw. Bearbeitet}
+Stefan und Junlong besprachen das weitere Vorgehen für das abzugebende Arbeitspaket (Messung, Filterung, Auswertung Beschleunigungssensor). Folgendes Vorgehen wurde besprochen:
+\begin{itemize}
+	\item Inbetriebnahme bestehender Code Beschleunigungssensor - OK
+	\item Inbetriebnahme bestehender Code UART (Mit USB-Seriell-Wandler)
+	\begin{itemize}
+		\item Probleme traten im Zusammenhang mit der Baudrate auf
+		\item evtl. ist der Quarz auf dem STM32F4 defekt/out-of-spec?
+		\item Versch. Baudraten brachten keine Besserung
+		\item Problem: Einzelne Bits sind falsch, teilweise Offset von 0x40 vorhanden
+	\end{itemize}
+	\item Ausgabe Beschleunigungs-Sensor-Werte auf UART
+	\item statistische Auswertung am PC mit Excel, Matlab, etc.
+\end{itemize}
+
+Rene und Mathias beschäftigten sich weiter mit der Designstudie für das Gehäuse und besprachen mit Herr Voß verschiedene, evtl. kritische Punkte.
