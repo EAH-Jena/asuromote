@@ -1,0 +1,13 @@
+\chapter{Treffen am 30.03.2014}
+\section{Anwesende Personen}
+\begin{itemize}
+	\item Stefan Biereigel
+	\item Rene Winkler
+\end{itemize}
+
+\section{Besprochen bzw. Bearbeitet}
+Das Protokoll für die Kommunikation auf der Funkschnittstelle wurde festgelegt. Relevant ist dabei: Jede Übertragung ist 3 Byte lang - diese kurze Paketlänge sichert schnelle Reaktionszeiten, ohne dass der notwendige Overhead (wegen der geringen Gesamtdatenmenge) für uns störend ist. In jedem Paket wird im ersten Byte die Zieladdrese (4 Bit) und der Pakettyp (4 Bit) kodiert. Im Moment sind zwei Addressen und weniger als 10 Pakettypen definiert, sodass noch genug Raum für Erweiterungen des Protokolles ist. Außerdem können so mehrere Fernsteuerungen gleichzeitig benutzt werden. Im zweiten Byte werden Nutzdaten übertragen. Die Länge wurde hier auf ein Byte festgelegt, was für die meisten Übertragungen ausreicht. Lediglich beim Flashen des ASURO fallen größere Datenmengen an, für diesen Zeitraum ist der hohe Overhead dann merklich. Durch die hohe Baudrate der Funkverbindung ist die Übertragung aber immer noch sehr viel schneller als die UART-Verbindung selbst (2400 Baud). Das dritte Byte enthält eine Checksumme, wodurch die Integrität der vorangegangenen Daten zuverlässig geprüft werden kann. Die Protokoll-Features des nRF24L01 werden nicht genutzt.
+
+Eine Modul-Spezifikation für die einzelnen Hardware-Treiber wurde erstellt, diese ist im Extradokument \textit{Spezifikation Software} zu finden. Als Kommunikationsweg zwischen Modulen wurde vorerst ein Flag-basierter Ansatz gewählt, auch wenn auf der Hardwareebene Interrupts verwendet werden. Zur Verbesserung des Designs wäre hier noch ratsam, eine quasi-Interrupt-basierte Intermodul-Kommunikation zu ermöglichen, zum Beispiel durch Registrierung von Listener-Funktionen. 
+
+Der Flash-Vorgang des ASURO Flashtools wurde beobachtet, um den nötigen Aufwand der Detektion des Flashvorgangs abzuschätzen. Zum Glück stellte sich dies recht einfach dar: Das Flashtool sendet bei einer Baudrate von 2400 Baud den Text "Flash" und wartet auf eine Antwort vom Roboter. Dies kann von der Fernbedienung überwacht werden, um in den Flash-Mode zu wechseln. Die Fernbedienung realisiert ohnehin eine transparente UART-Brücke zwischen PC und ASURO, sodass die UART-Schnittstelle auch für normale Kommunikation nutzbar bleibt.

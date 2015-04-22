@@ -1,0 +1,14 @@
+\chapter{Treffen am 19.03.2014}
+\section{Anwesende Personen}
+\begin{itemize}
+	\item Stefan Biereigel
+	\item Rene Winkler
+\end{itemize}
+
+\section{Besprochen bzw. Bearbeitet}
+Rene hat das Gehäuse weiter überarbeitet - eine Konstruktion aus zwei Gehäusehälften ist entstanden. Während des Treffens wurde ihr noch ein Passrand hinzugeführt, um beide Hälften gut aufeinander passend zu machen. So kann das Gehäuse ohne Überhänge vom 3D-Drucker aufgebaut werden. Es wurden grundlegende Anforderungen an die Elektronik gestellt und die Aufteilung der Elektronik auf die einzelnen Leiterplatten aufgestellt.
+
+Die Elektronik teilt sich auf drei Leiterplatten auf: Das Mainboard, auf welches das STM32F4 Discovery aufgesteckt wird, die Joystick-Leiterplatte, auf der nur der Joystick zu finden ist sowie die Taster-Leiterplatte, auf der zusätzlich zu den Tastern auch noch ein Schiebeschalter (Mode-Umschaltung) und den USB-Seriell-Wandler.
+Die Schnittstelle zwischen diesen Leiterplatten stellen 2,54mm-Stiftleisten dar.
+
+Das Stromversorgungskonzept wurde ausgearbeitet: Das Laden soll über die USB-Schnittstelle möglich sein, die auch für die Kommunikation mit dem PC benutzt wird. Die Schaltung wird aus einem LiPo / LiIon-Akku versorgt, der 3,7V liefert. Da das STM32F4 und das LCD mit 5V betrieben werden, muss die Spannung vom Akku hochgesetzt werden. Der Ladezustand soll mit dem STM32 auslesbar sein. Da der Akku auch geladen werden soll, wenn das Gerät ausgeschaltet ist, darf der Akku nicht über den Schalter vom Step-Up-Wandler getrennt werden. Es wird also der ENABLE-Eingang dieses Reglers verwendet, um die Erzeugung der 5V zu unterdrücken und damit das Gerät abzuschalten. Damit wird ein sehr geringer Standby-Verbrauch erreicht.
